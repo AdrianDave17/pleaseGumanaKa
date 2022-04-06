@@ -24,13 +24,15 @@
     require('config/db.php');
 
     //create query
-    $query = 'SELECT * FROM office ORDER BY name';
+    $query = 'SELECT transaction.datelog, transaction.documentcode, transaction.action, transaction.remarks, office.name as office_name,
+    CONCAT(employee.lastname, ",", employee.firstname) as employee_fullname FROM employee, office, transaction
+    WHERE transaction.employee_id = employee.id and transaction.office_id = office.id';
 
     //get the result
     $result = mysqli_query($conn, $query);
 
     //fetch the data
-    $offices = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $transactions = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     //free result
     mysqli_free_result($result);
@@ -45,7 +47,7 @@
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
         Tip 2: you can also add an image using data-image tag
-        -->
+    -->
             <div class="sidebar-wrapper">
             <?php include('includes/sidebar.php'); ?>
      
@@ -62,32 +64,30 @@
 
                     <div class="row">
                     <div class="col-md-12">
-                    <div class="card striped-tabled-with-hover">
+                        <div class="card striped-tabled-with-hover">
                             <div class="card-header">
-                                <h4 class="card-title">Offices</h4>
+                                <h4 class="card-title">Transactions</h4>
                                 <p class="card-category">Here is a subtitle for this table</p>
                             </div>
                             <div class="card-body table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                        <th>Name</th>
-                                    	<th>Contact Number</th>
-                                    	<th>Email</th>
-                                    	<th>Address</th>
-                                    	<th>City</th>
-                                        <th>Country</th>
-                                        <th>Postal</th>
+                                        <th>Datelog</th>
+                                    	<th>Document</th>
+                                    	<th>Action</th>
+                                    	<th>Office</th>
+                                        <th>Employee</th>
+                                    	<th>Remarks</th>
                                     </thead>
                                     <tbody>
-                                        <?php foreach($offices as $office) : ?>
+                                        <?php foreach($transactions as $transaction) : ?>
                                         <tr>
-                                        	<td><?php echo $office['name']; ?></td>
-                                            <td><?php echo $office['contactnum']; ?></td>
-                                            <td><?php echo $office['email']; ?></td>
-                                            <td><?php echo $office['address']; ?></td>
-                                            <td><?php echo $office['city']; ?></td>
-                                            <td><?php echo $office['country']; ?></td>
-                                            <td><?php echo $office['postal']; ?></td>
+                                        	<td><?php echo $transaction['datelog']; ?></td>
+                                            <td><?php echo $transaction['documentcode']; ?></td>
+                                            <td><?php echo $transaction['action']; ?></td>
+                                            <td><?php echo $transaction['office_name']; ?></td>
+                                            <td><?php echo $transaction['employee_fullname']; ?></td>
+                                            <td><?php echo $transaction['remarks']; ?></td>
                                         </tr>
                                         <?php endforeach ?>
                                     </tbody>
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                     </div>
-                    </div>    
+                    </div> 
                 </div>
             </div>
 

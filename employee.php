@@ -24,13 +24,14 @@
     require('config/db.php');
 
     //create query
-    $query = 'SELECT * FROM employee';
+    $query = 'SELECT employee.lastname, employee.firstname, employee.address, office.name as office_name 
+    FROM employee, office WHERE employee.office_id = office.id';
 
     //get the result
     $result = mysqli_query($conn, $query);
 
     //fetch the data
-    $offices = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $employees = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     //free result
     mysqli_free_result($result);
@@ -62,12 +63,12 @@
 
                     <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Striped Table with Hover</h4>
-                                <p class="category">Here is a subtitle for this table</p>
+                        <div class="card striped-tabled-with-hover">
+                            <div class="card-header">
+                                <h4 class="card-title">Employees</h4>
+                                <p class="card-category">Here is a subtitle for this table</p>
                             </div>
-                            <div class="content table-responsive table-full-width">
+                            <div class="card-body table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
                                         <th>Last name</th>
@@ -76,12 +77,12 @@
                                     	<th>Office</th>
                                     </thead>
                                     <tbody>
-                                        <?php foreach($offices as $office) : ?>
+                                        <?php foreach($employees as $employee) : ?>
                                         <tr>
-                                        	<td><?php echo $office['lastname']; ?></td>
-                                            <td><?php echo $office['firstname']; ?></td>
-                                            <td><?php echo $office['address']; ?></td>
-                                            <td><?php echo $office['office_id']; ?></td>
+                                        	<td><?php echo $employee['lastname']; ?></td>
+                                            <td><?php echo $employee['firstname']; ?></td>
+                                            <td><?php echo $employee['address']; ?></td>
+                                            <td><?php echo $employee['office_name']; ?></td>
                                         </tr>
                                         <?php endforeach ?>
                                     </tbody>
@@ -89,10 +90,10 @@
                             </div>
                         </div>
                     </div>
-                    </div>    
-                </div>
+                    </div> 
                 </div>
             </div>
+
             <footer class="footer">
                 <div class="container-fluid">
                     <nav>
