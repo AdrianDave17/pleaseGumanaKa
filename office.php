@@ -19,6 +19,26 @@
 </head>
 
 <body>
+<?php
+    require('config/config.php');
+    require('config/db.php');
+
+    //create query
+    $query = 'SELECT * FROM office ORDER BY name';
+
+    //get the result
+    $result = mysqli_query($conn, $query);
+
+    //fetch the data
+    $offices = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    //free result
+    mysqli_free_result($result);
+
+    //close connection
+    mysqli_close($conn);
+
+?>
     <div class="wrapper">
         <div class="sidebar" data-image="assets/img/sidebar-5.jpg">
             <!--
@@ -129,6 +149,43 @@
                 <div class="container-fluid">
                     <div class="section">
                     </div>
+                    <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Striped Table with Hover</h4>
+                                <p class="category">Here is a subtitle for this table</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <th>Name</th>
+                                    	<th>Contact Number</th>
+                                    	<th>Email</th>
+                                    	<th>Address</th>
+                                    	<th>City</th>
+                                        <th>Country</th>
+                                        <th>Postal</th>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach($offices as $office) : ?>
+                                        <tr>
+                                        	<td><?php echo $office['name']; ?></td>
+                                            <td><?php echo $office['contactnum']; ?></td>
+                                            <td><?php echo $office['email']; ?></td>
+                                            <td><?php echo $office['address']; ?></td>
+                                            <td><?php echo $office['city']; ?></td>
+                                            <td><?php echo $office['country']; ?></td>
+                                            <td><?php echo $office['postal']; ?></td>
+                                        </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>    
+                </div>
                 </div>
             </div>
             <footer class="footer">
@@ -263,6 +320,6 @@
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
 <script src="assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
-<script src="assets/js/demo.js"></script>
+<script src=assets/js/demo.js"></script>
 
 </html>
