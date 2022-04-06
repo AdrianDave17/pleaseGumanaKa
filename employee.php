@@ -24,7 +24,7 @@
     require('config/db.php');
 
     //create query
-    $query = 'SELECT * FROM office ORDER BY name';
+    $query = 'SELECT * FROM employee';
 
     //get the result
     $result = mysqli_query($conn, $query);
@@ -45,7 +45,7 @@
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
         Tip 2: you can also add an image using data-image tag
-        -->
+    -->
             <div class="sidebar-wrapper">
             <?php include('includes/sidebar.php'); ?>
      
@@ -70,24 +70,18 @@
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                        <th>Name</th>
-                                    	<th>Contact Number</th>
-                                    	<th>Email</th>
+                                        <th>Last name</th>
+                                    	<th>First name</th>
                                     	<th>Address</th>
-                                    	<th>City</th>
-                                        <th>Country</th>
-                                        <th>Postal</th>
+                                    	<th>Office</th>
                                     </thead>
                                     <tbody>
                                         <?php foreach($offices as $office) : ?>
                                         <tr>
-                                        	<td><?php echo $office['name']; ?></td>
-                                            <td><?php echo $office['contactnum']; ?></td>
-                                            <td><?php echo $office['email']; ?></td>
+                                        	<td><?php echo $office['lastname']; ?></td>
+                                            <td><?php echo $office['firstname']; ?></td>
                                             <td><?php echo $office['address']; ?></td>
-                                            <td><?php echo $office['city']; ?></td>
-                                            <td><?php echo $office['country']; ?></td>
-                                            <td><?php echo $office['postal']; ?></td>
+                                            <td><?php echo $office['office_id']; ?></td>
                                         </tr>
                                         <?php endforeach ?>
                                     </tbody>
@@ -97,8 +91,8 @@
                     </div>
                     </div>    
                 </div>
+                </div>
             </div>
-        </div>
             <footer class="footer">
                 <div class="container-fluid">
                     <nav>
