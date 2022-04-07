@@ -17,14 +17,21 @@ Direction:
 2022-04-01  
 [/] Modify the field name id in user account  
 
-## These are the items you have to accomplished:  
+## These are the items you have to accomplished:
+
+2022-04-05  
 [/] Add assets to the project.  
 [/] Create includes directory; create navbar and sidebar.  
-[/] Setup database configuration.  
+[/] Setup database configuration.
+
+2022-04-06  
 [/] Create page for List of office.
 [/] Create page for List of employees.  
-[/] Create page for List of transactions.  
-[x] Create page for adding office.  
+[/] Create page for List of transactions.
+ 
+2022-04-7 
+[/] Create page for adding office.
+  
 [x] Create page for adding employee.  
 [x] Create page for adding transactions.  
 [x] Applying pagination to list of office.  
