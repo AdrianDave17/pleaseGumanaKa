@@ -30,10 +30,12 @@ Direction:
 [/] Create page for List of transactions.
  
 2022-04-7 
-[/] Create page for adding office.  
-[/] Create page for adding employee.
+[/] Create page for adding office.
   
-[x] Create page for adding transactions.  
+2022-04-8
+[/] Create page for adding employee.
+[/]reate page for adding transactions.
+  
 [x] Applying pagination to list of office.  
 [x] Applying pagination to list of employees.  
 [x] Applying pagination to list of transactions.  
