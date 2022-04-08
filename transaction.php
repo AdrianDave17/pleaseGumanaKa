@@ -23,10 +23,33 @@
     require('config/config.php');
     require('config/db.php');
 
+    //define total number of results you want per page
+    $results_per_page = 10;
+
+    //find the total number of results/rows stored in the database
+    $query = "SELECT * FROM transaction";
+    $result = mysqli_query($conn, $query);
+    $number_of_result = mysqli_num_rows($result);
+
+    //determine the total number of pages available
+    $number_of_page = ceil($number_of_result / $results_per_page);
+
+    //determine which page number visitor currently on
+    if(!isset($_GET['page'])) {
+        $page = 1;
+    }
+    else {
+        $page = $_GET['page']; 
+    }
+
+    //determine the sql LIMIT starting number for the results on the display page
+    $page_first_result = ($page-1) * $results_per_page;
+
     //create query
     $query = 'SELECT transaction.datelog, transaction.documentcode, transaction.action, transaction.remarks, office.name as office_name,
     CONCAT(employee.lastname, ",", employee.firstname) as employee_fullname FROM employee, office, transaction
-    WHERE transaction.employee_id = employee.id and transaction.office_id = office.id';
+    WHERE transaction.employee_id = employee.id and transaction.office_id = office.id
+    LIMIT '.$page_first_result. ',' .$results_per_page;
 
     //get the result
     $result = mysqli_query($conn, $query);
@@ -102,7 +125,13 @@
                             </div>
                         </div>
                     </div>
-                    </div> 
+                    </div>
+                    <?php
+                        for($page = 1; $page <= $number_of_page; $page++) {
+                            echo '<a href = "transaction.php?page='.$page.'">'.$page.'</a>';
+                        }
+                    
+                    ?> 
                 </div>
             </div>
 
