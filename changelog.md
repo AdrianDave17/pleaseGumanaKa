@@ -35,12 +35,12 @@ Direction:
 2022-04-8
 [/] Create page for adding employee.
 [/] Create page for adding transactions.
-  
 [/] Applying pagination to list of office.  
 [/] Applying pagination to list of employees.  
 [/] Applying pagination to list of transactions.
-  
-[x] Create search feature in list of transactions.  
+
+2022-04-09
+[/] Create search feature in list of transactions.  
 [x] Create search feature in list of office. (challenge)  
 [x] Create search feature in list of employees. (challenge)  
 [x] Edit page for office.  

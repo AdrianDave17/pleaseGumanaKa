@@ -23,6 +23,9 @@
     require('config/config.php');
     require('config/db.php');
 
+    //gets the value sent over the search form
+    $search = isset($_GET['search']) ? $_GET['search'] : null; //added some code due to some error
+
     //define total number of results you want per page
     $results_per_page = 10;
 
@@ -46,10 +49,22 @@
     $page_first_result = ($page-1) * $results_per_page;
 
     //create query
-    $query = 'SELECT transaction.datelog, transaction.documentcode, transaction.action, transaction.remarks, office.name as office_name,
-    CONCAT(employee.lastname, ",", employee.firstname) as employee_fullname FROM employee, office, transaction
-    WHERE transaction.employee_id = employee.id and transaction.office_id = office.id
-    LIMIT '.$page_first_result. ',' .$results_per_page;
+    if (strlen($search) > 0) {
+        $query = 'SELECT transaction.datelog, transaction.documentcode, transaction.action, transaction.remarks, office.name as office_name,
+        CONCAT(employee.lastname, ",", employee.firstname) as employee_fullname FROM employee, office, transaction
+        WHERE transaction.employee_id = employee.id and transaction.office_id = office.id and transaction.documentcode = '.$search.'
+        ORDER BY transaction.documentcode, transaction.datelog   
+        LIMIT '.$page_first_result. ',' .$results_per_page;
+
+    }
+
+    else {
+        $query = 'SELECT transaction.datelog, transaction.documentcode, transaction.action, transaction.remarks, office.name as office_name,
+        CONCAT(employee.lastname, ",", employee.firstname) as employee_fullname FROM employee, office, transaction
+        WHERE transaction.employee_id = employee.id and transaction.office_id = office.id 
+        ORDER BY transaction.documentcode, transaction.datelog
+        LIMIT '.$page_first_result. ',' .$results_per_page;
+    }
 
     //get the result
     $result = mysqli_query($conn, $query);
@@ -89,6 +104,13 @@
                     <div class="col-md-12">
                         <div class="card striped-tabled-with-hover">
                         <br/>
+                        <div class="col-md-12">
+                            <form action="transaction.php" method="GET">
+                                <input type="text" name="search" />
+                                <input type="submit" value="Search" class="btn btn-info btn-fill" />
+                            </form>
+                        </div>
+
                         <div class="col-md-12">
                         <a href="/transaction-add.php">
                             <button type="submit" class="btn btn-info btn-fill pull-right">Add New Transactions</button>
