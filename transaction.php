@@ -24,10 +24,10 @@
     require('config/db.php');
 
     //gets the value sent over the search form
-    $search = isset($_GET['search']) ? $_GET['search'] : null; //added some code due to some error
+    $search = isset($_GET['search']) ? $_GET['search'] : null; //I added some code due to some error
 
     //define total number of results you want per page
-    $results_per_page = 10;
+    $results_per_page = 20;
 
     //find the total number of results/rows stored in the database
     $query = "SELECT * FROM transaction";

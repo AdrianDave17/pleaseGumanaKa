@@ -41,10 +41,25 @@ Direction:
 
 2022-04-09
 [/] Create search feature in list of transactions.  
-[x] Create search feature in list of office. (challenge)  
+[/] Create search feature in list of office. (challenge)  
 [x] Create search feature in list of employees. (challenge)  
 [x] Edit page for office.  
 [x] Edit page for employees.  
 [x] Edit page for transactions. (challenge)
 
 ***challenge means not included in the video***
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
