@@ -51,13 +51,13 @@
 
     //create query
     if (strlen($search) > 0) {
-        $query = 'SELECT employee.lastname, employee.firstname, employee.address, 
+        $query = 'SELECT employee.id, employee.lastname, employee.firstname, employee.address, 
         office.name as office_name FROM employee, office WHERE employee.office_id = office.id and  
         CONCAT(employee.firstname, " ",employee.lastname, " ",employee.firstname) LIKE "%'.$search.'%"
         ORDER BY employee.lastname LIMIT '.$page_first_result. ',' .$results_per_page;
     }
     else {
-        $query = 'SELECT employee.lastname, employee.firstname, employee.address, office.name as office_name
+        $query = 'SELECT employee.id, employee.lastname, employee.firstname, employee.address, office.name as office_name
         FROM employee, office WHERE employee.office_id = office.id ORDER BY employee.lastname
         LIMIT '.$page_first_result. ',' .$results_per_page;
     }
@@ -124,6 +124,7 @@
                                     	<th>First name</th>
                                     	<th>Address</th>
                                     	<th>Office</th>
+                                        <th>Action</th>
                                     </thead>
                                     <tbody>
                                         <?php foreach($employees as $employee) : ?>
@@ -132,6 +133,11 @@
                                             <td><?php echo $employee['firstname']; ?></td>
                                             <td><?php echo $employee['address']; ?></td>
                                             <td><?php echo $employee['office_name']; ?></td>
+                                            <td>
+                                                <a href="/employee-edit.php? id=<?php echo $employee['id']; ?>">
+                                                    <button type="submit" class="btn btn-warning btn-fill pull-right"> Edit </button>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <?php endforeach ?>
                                     </tbody>

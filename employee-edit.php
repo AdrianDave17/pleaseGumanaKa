@@ -19,6 +19,36 @@
 </head>
 
 <body>
+    <?php
+        require('config/config.php');
+        require('config/db.php');
+
+        //get value sent over
+        $id = $_GET['id'];
+
+        //create query
+        $query = "SELECT * FROM employee WHERE id=" . $id;
+
+        //get the result of query
+        $result = mysqli_query($conn, $query);
+
+        if (count(array($result))==1) { //I added (array()) to make $result countable
+            //fetch data
+            $employee = mysqli_fetch_array($result);
+            $lastname = $employee['lastname'];
+            $firstname = $employee['firstname'];
+            $office_id = $employee['office_id'];
+            $address = $employee['address'];
+        }
+
+        //free result
+        mysqli_free_result($result);
+
+        //close connection
+        mysqli_close($conn);
+    
+    ?>  
+
     <div class="wrapper">
         <div class="sidebar" data-image="assets/img/sidebar-5.jpg">
             <div class="sidebar-wrapper">
@@ -29,7 +59,7 @@
         <div class="main-panel">
         <?php include('includes/navbar.php'); ?>
 <?php 
-    require('config/config.php');
+
     require('config/db.php');
 
     //check if submitted
@@ -41,14 +71,14 @@
         $address = mysqli_real_escape_string($conn, $_POST['address']);
 
         //create insert query
-        $query = "INSERT INTO employee(lastname, firstname, office_id, address)
-        VALUES('$lastname', '$firstname', '$office_id', '$address')";
+        $query = "UPDATE employee SET lastname='$lastname', firstname='$firstname', office_id='$office_id', address='$address'
+        WHERE id=" .$id;
 
         //execute query
         if(mysqli_query($conn, $query)) {
         }
         else {
-            echo 'ERROR: '. mysqli_error($conn);
+            echo 'ERROR: '. msqli_error($conn);
         }
     }
 
@@ -70,13 +100,13 @@
                                         <div class="col-md-4 pr-1">
                                             <div class="form-group">
                                                 <label> Last Name </label>
-                                                <input name="lastname" type="text" class="form-control">
+                                                <input name="lastname" type="text" class="form-control" value="<?php echo $lastname; ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4 px-1">
                                             <div class="form-group">
                                                 <label> First Name </label>
-                                                <input name="firstname" type="text" class="form-control">
+                                                <input name="firstname" type="text" class="form-control" value="<?php echo $firstname; ?>">
                                             </div>
                                         </div>
 
@@ -89,7 +119,13 @@
                                                         $query = "SELECT id, name FROM office";
                                                         $result = mysqli_query($conn, $query);
                                                         while ($row = mysqli_fetch_array($result)) {
-                                                            echo "<option value=" . $row['id'] . "> " . $row['name'] . "</option>";
+                                                            if ($row['id'] == $office_id) {
+                                                                echo "<option value=" . $row['id'] . "selected>" . $row['name'] . "</option>";
+                                                            }
+                                                            else {
+                                                                echo "<option value=" . $row['id'] . ">" . $row['name'] . "</option>";
+                                                            }
+                                                            
                                                         }
 
                                                     ?>
@@ -102,7 +138,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label> Address / Building </label>
-                                                    <input name="address" type="text" class="form-control">
+                                                    <input name="address" type="text" class="form-control" value="<?php echo $address; ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -115,7 +151,7 @@
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
             <footer class="footer">
                 <div class="container-fluid">
                     <nav>
