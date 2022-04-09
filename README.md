@@ -1,1 +1,1 @@
-# pleaseGumanaKa
+# gumana na po :>

@@ -50,7 +50,7 @@
 
     //create query
     if (strlen($search) > 0) {
-        $query = 'SELECT transaction.datelog, transaction.documentcode, transaction.action, transaction.remarks, office.name as office_name,
+        $query = 'SELECT transaction.id, transaction.datelog, transaction.documentcode, transaction.action, transaction.remarks, office.name as office_name,
         CONCAT(employee.lastname, ",", employee.firstname) as employee_fullname FROM employee, office, transaction
         WHERE transaction.employee_id = employee.id and transaction.office_id = office.id and transaction.documentcode = '.$search.'
         ORDER BY transaction.documentcode, transaction.datelog   
@@ -59,7 +59,7 @@
     }
 
     else {
-        $query = 'SELECT transaction.datelog, transaction.documentcode, transaction.action, transaction.remarks, office.name as office_name,
+        $query = 'SELECT transaction.id, transaction.datelog, transaction.documentcode, transaction.action, transaction.remarks, office.name as office_name,
         CONCAT(employee.lastname, ",", employee.firstname) as employee_fullname FROM employee, office, transaction
         WHERE transaction.employee_id = employee.id and transaction.office_id = office.id 
         ORDER BY transaction.documentcode, transaction.datelog
@@ -130,6 +130,7 @@
                                     	<th>Office</th>
                                         <th>Employee</th>
                                     	<th>Remarks</th>
+                                        <th>Action</th>
                                     </thead>
                                     <tbody>
                                         <?php foreach($transactions as $transaction) : ?>
@@ -140,6 +141,11 @@
                                             <td><?php echo $transaction['office_name']; ?></td>
                                             <td><?php echo $transaction['employee_fullname']; ?></td>
                                             <td><?php echo $transaction['remarks']; ?></td>
+                                            <td>
+                                                <a href="/transaction-edit.php? id=<?php echo $transaction['id']; ?>">
+                                                    <button type="submit" class="btn btn-warning btn-fill pull-right"> Edit </button>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <?php endforeach ?>
                                     </tbody>
