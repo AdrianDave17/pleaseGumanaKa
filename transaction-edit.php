@@ -41,6 +41,7 @@
         $office_id = $transaction['office_id'];
         $employee_id = $transaction['employee_id'];
         $remarks = $transaction['remarks'];
+        $datelog = $transaction['datelog'];
     }
 
     //free result
@@ -72,9 +73,10 @@
         $remarks = mysqli_real_escape_string($conn, $_POST['remarks']);
         $employee_id = mysqli_real_escape_string($conn, $_POST['employee_id']);
         $office_id = mysqli_real_escape_string($conn, $_POST['office_id']);
+        $datelog = mysqli_real_escape_string($conn, $_POST['datelog']);
         
         //create insert query
-        $datelog = date("Y-m-d H:i:s");//current date and time
+        //$datelog = date("Y-m-d H:i:s");//current date and time
         $query = "UPDATE transaction SET datelog='$datelog', documentcode='$documentcode', action='$action', remarks='$remarks', employee_id='$employee_id', office_id='$office_id' 
             WHERE id=" . $id;
 
@@ -105,6 +107,12 @@
                                         <div class="col-md-3 pr-1">
                                             <div class="form-group">
                                                 <label> Document Code</label>
+                                                <input name="datelog" type="text" class="form-control" value="<?php echo $datelog; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 pr-1">
+                                            <div class="form-group">
+                                                <label> Document Code</label>
                                                 <input name="documentcode" type="text" class="form-control" value="<?php echo $documentcode; ?>">
                                             </div>
                                         </div>
@@ -118,7 +126,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 pl-1">
+                                        <div class="col-md-3 pr-1">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail">Remarks</label>
                                                 <input name="remarks" type="text" class="form-control" value="<?php echo $remarks; ?>">
